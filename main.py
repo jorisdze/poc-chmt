@@ -1,38 +1,50 @@
 import psycopg2
 from config import config
 
-def connect():
-    """ Connect to the PostgreSQL database server """
-    conn = None
-    try:
-        # read connection parameters
-        params = config()
+import os
 
-        # connect to the PostgreSQL server
-        print('Connecting to the PostgreSQL database...')
-        print(params)
-        conn = psycopg2.connect(**params)
+from google.cloud.sql.connector import Connector, IPTypes
+import pg8000
 
-        # create a cursor
-        cur = conn.cursor()
+import sqlalchemy
 
-        # execute a statement
-        print('PostgreSQL database version:')
-        cur.execute('SELECT version()')
+def connect_with_connector() -> sqlalchemy.engine.base.Engine:
+    """
+    Initializes a connection pool for a Cloud SQL instance of Postgres.
 
-        # display the PostgreSQL database server version
-        db_version = cur.fetchone()
-        print(db_version)
+    Uses the Cloud SQL Python Connector package.
+    """
+    # Note: Saving credentials in environment variables is convenient, but not
+    # secure - consider a more secure solution such as
+    # Cloud Secret Manager (https://cloud.google.com/secret-manager) to help
+    # keep secrets safe.
 
-        # close the communication with the PostgreSQL
-        cur.close()
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
-    finally:
-        if conn is not None:
-            conn.close()
-            print('Database connection closed.')
+    ip_type = IPTypes.PRIVATE if os.environ.get("PRIVATE_IP") else IPTypes.PUBLIC
+
+    # initialize Cloud SQL Python Connector object
+    connector = Connector()
+
+    def getconn() -> pg8000.dbapi.Connection:
+        conn: pg8000.dbapi.Connection = connector.connect(
+            "tonal-limiter-394416:us-central1:poc-chaumet",
+            "pg8000",
+            user="postgres",
+            password="!Ven2023",
+            db="chmt",
+            ip_type=ip_type,
+        )
+        return conn
+
+    # The Cloud SQL Python Connector can be used with SQLAlchemy
+    # using the 'creator' argument to 'create_engine'
+    pool = sqlalchemy.create_engine(
+        "postgresql+pg8000://",
+        creator=getconn,
+        # ...
+    )
+    return pool
+
 
 
 if __name__ == '__main__':
-    connect()
+    connect_with_connector()
