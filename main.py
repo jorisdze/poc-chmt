@@ -48,4 +48,8 @@ def connect_with_connector() -> sqlalchemy.engine.base.Engine:
 
 
 if __name__ == '__main__':
-    connect_with_connector()
+    conn=connect_with_connector()
+    stmt = sqlalchemy.text(
+        "INSERT INTO votes (time_cast, candidate) VALUES (:time_cast, :candidate)"
+    )
+    conn.execute(stmt)
