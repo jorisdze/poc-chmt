@@ -42,6 +42,7 @@ def connect_with_connector() -> sqlalchemy.engine.base.Engine:
         creator=getconn,
         # ...
     )
+    print(pool)
     return pool
 
 
