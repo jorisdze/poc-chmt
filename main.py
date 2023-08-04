@@ -55,6 +55,6 @@ if __name__ == '__main__':
             result = connection.execute(text("create table user"))
             print(result)
             print("pass!")
-    except:
-        print("error")
+    except Exception as error:
+        print("An error occurred:", type(error).__name__)
 
