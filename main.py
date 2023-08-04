@@ -51,7 +51,7 @@ def connect_with_connector() -> sqlalchemy.engine.base.Engine:
 if __name__ == '__main__':
 
     stmt = sqlalchemy.text(
-        "CREATE TABLE user;"
+        "CREATE TABLE fichiers;"
     )
     conn=connect_with_connector()
     try:
