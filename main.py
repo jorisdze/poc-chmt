@@ -46,14 +46,11 @@ def connect_with_connector() -> sqlalchemy.engine.base.Engine:
     print(pool)
     return pool
 
-
-
-if __name__ == '__main__':
-
+def create_table():
     stmt = sqlalchemy.text(
         "CREATE TABLE IF NOT EXISTS fichiers (id_fichier serial PRIMARY KEY, nom_fichier VARCHAR(100) NOT NULL,date_reception TIMESTAMP NOT NULL,date_ingestion TIMESTAMP NOT NULL);"
     )
-    conn=connect_with_connector()
+    conn = connect_with_connector()
     try:
         with conn.connect() as connection:
             connection.execute(stmt)
@@ -63,4 +60,10 @@ if __name__ == '__main__':
     except Exception as error:
         print("An error occurred:", type(error).__name__)
         print("An error occurred:", error)
+
+
+
+if __name__ == '__main__':
+
+    create_table()
 
