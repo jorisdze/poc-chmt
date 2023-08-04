@@ -52,4 +52,5 @@ if __name__ == '__main__':
     conn=connect_with_connector()
     with conn.connect() as connection:
         result = connection.execute(text("create table user"))
+        print(result)
 
