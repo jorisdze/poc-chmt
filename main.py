@@ -50,7 +50,11 @@ def connect_with_connector() -> sqlalchemy.engine.base.Engine:
 
 if __name__ == '__main__':
     conn=connect_with_connector()
-    with conn.connect() as connection:
-        result = connection.execute(text("create table user"))
-        print(result)
+    try:
+        with conn.connect() as connection:
+            result = connection.execute(text("create table user"))
+            print(result)
+            print("pass!")
+    except:
+        print("error")
 
