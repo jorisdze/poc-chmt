@@ -52,7 +52,7 @@ if __name__ == '__main__':
     conn=connect_with_connector()
     try:
         with conn.connect() as connection:
-            print(connection)
+            print(connection.info)
             print("pass!")
     except Exception as error:
         print("An error occurred:", type(error).__name__)
