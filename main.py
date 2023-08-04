@@ -51,12 +51,13 @@ def connect_with_connector() -> sqlalchemy.engine.base.Engine:
 if __name__ == '__main__':
 
     stmt = sqlalchemy.text(
-        "CREATE TABLE fichiers (id_fichier INT);"
+        "CREATE TABLE  [IF NOT EXISTS] fichiers (id_fichier serial PRIMARY KEY, nom_fichier VARCHAR(100) NOT NULL,date_reception TIMESTAMP NOT NULL,date_ingestion TIMESTAMP NOT NULL);"
     )
     conn=connect_with_connector()
     try:
         with conn.connect() as connection:
             connection.execute(stmt)
+            connection.commit()
             print(connection)
             print("pass!")
     except Exception as error:
