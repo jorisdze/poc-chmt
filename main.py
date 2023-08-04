@@ -51,7 +51,7 @@ def connect_with_connector() -> sqlalchemy.engine.base.Engine:
 if __name__ == '__main__':
 
     stmt = sqlalchemy.text(
-        "CREATE TABLE  [IF NOT EXISTS] fichiers AS SELECT 'toto as nom';"
+        "CREATE TABLE  fichiers AS SELECT 'toto as nom';"
     )
     conn=connect_with_connector()
     try:
