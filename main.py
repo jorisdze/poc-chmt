@@ -4,6 +4,7 @@ from config import config
 import os
 
 from google.cloud.sql.connector import Connector, IPTypes
+from google.cloud import storage
 import pg8000
 
 import sqlalchemy
@@ -62,8 +63,16 @@ def create_table():
         print("An error occurred:", error)
 
 
+def list_bucket():
+    storage_client = storage.Client(project="tonal-limiter-394416")
+    buckets = storage_client.list_buckets()
+    print("Buckets:")
+    for bucket in buckets:
+        print(bucket.name)
+    print("Listed all storage buckets.")
+
 
 if __name__ == '__main__':
 
-    create_table()
+    list_bucket()
 
