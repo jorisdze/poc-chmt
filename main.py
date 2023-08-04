@@ -61,4 +61,5 @@ if __name__ == '__main__':
             print("pass!")
     except Exception as error:
         print("An error occurred:", type(error).__name__)
+        print("An error occurred:", error)
 
