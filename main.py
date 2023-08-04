@@ -7,6 +7,7 @@ from google.cloud.sql.connector import Connector, IPTypes
 import pg8000
 
 import sqlalchemy
+from sqlalchemy import text
 
 def connect_with_connector() -> sqlalchemy.engine.base.Engine:
     """
@@ -49,4 +50,6 @@ def connect_with_connector() -> sqlalchemy.engine.base.Engine:
 
 if __name__ == '__main__':
     conn=connect_with_connector()
+    with conn.connect() as connection:
+        result = connection.execute(text("create table user"))
 
