@@ -49,10 +49,15 @@ def connect_with_connector() -> sqlalchemy.engine.base.Engine:
 
 
 if __name__ == '__main__':
+
+    stmt = sqlalchemy.text(
+        "CREATE TABLE user;"
+    )
     conn=connect_with_connector()
     try:
         with conn.connect() as connection:
-            print(connection.info)
+            connection.execute(stmt)
+            print(connection)
             print("pass!")
     except Exception as error:
         print("An error occurred:", type(error).__name__)
