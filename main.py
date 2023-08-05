@@ -78,7 +78,7 @@ def create_request(bucket,project_id,instance_id,access_token):
             }
         }
     result=requests.post(url, json=var,headers={'Content-Type':'application/json',
-               'Authorization': 'Bearer {}'.format(access_token)})
+               'Authorization': 'token  {}'.format(access_token)})
     print(result.text)
 
 
