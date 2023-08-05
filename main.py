@@ -63,7 +63,7 @@ def create_table(stmt):
         print("An error occurred:", error)
 
 
-def create_request(bucket,project_id,instance_id):
+def create_request(bucket,project_id,instance_id,access_token):
     url = "https://sqladmin.googleapis.com/v1/projects/{id}/instances/{instance}/import".format(id = project_id,instance=instance_id)
     var = {
         "importContext":
@@ -77,7 +77,8 @@ def create_request(bucket,project_id,instance_id):
                     }
             }
         }
-    result=requests.post(url, json=var)
+    result=requests.post(url, json=var,headers={'Content-Type':'application/json',
+               'Authorization': 'Bearer {}'.format(access_token)})
     print(result.text)
 
 
@@ -108,7 +109,7 @@ if __name__ == '__main__':
             birthdate VARCHAR(100) NOT NULL,
             tel VARCHAR(100) NOT NULL);"""
     )
-    #create_request("poc-chaumet","tonal-limiter-394416","poc-chaumet")
+    #
     # getting the credentials and project details for gcp project
     credentials, your_project_id = google.auth.default(scopes=["https://www.googleapis.com/auth/cloud-platform"])
 
@@ -120,4 +121,5 @@ if __name__ == '__main__':
     # cehck for valid credentials
     print(credentials.valid)  # prints True
     print(credentials.token)  # prints token
+    create_request("poc-chaumet", "tonal-limiter-394416", "poc-chaumet",credentials.token)
 
