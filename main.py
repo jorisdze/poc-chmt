@@ -81,22 +81,25 @@ def create_request(bucket,project_id,instance_id,access_token):
     result=requests.post(url, json=var,headers={'Content-Type':'application/json',
                'Authorization': 'Bearer {}'.format(access_token)})
 
+    def get_req_status():
+        return requests.get(dict_respons["selfLink"],
+                     headers={'Content-Type': 'application/json', 'Authorization': 'Bearer {}'.format(access_token)})
+
+
     dict_respons= json.loads(result.text)
     print(dict_respons["selfLink"])
-    get_status = requests.get(dict_respons["selfLink"],headers={'Content-Type':'application/json','Authorization': 'Bearer {}'.format(access_token)})
 
-    dict_status = json.loads(get_status.text)
+
+    dict_status = json.loads(get_req_status().text)
     print(dict_status["status"])
 
     status = dict_status["status"]
     while status == "PENDING" or status =="RUNNING" :
-        get_current_status = requests.get(dict_respons["selfLink"], headers={'Content-Type': 'application/json','Authorization': 'Bearer {}'.format(access_token)})
-        current_status = json.loads(get_current_status.text)
+        current_status = json.loads(get_req_status().text)
         status = current_status["status"]
         print(status)
 
-    final_status = requests.get(dict_respons["selfLink"], headers={'Content-Type': 'application/json','Authorization': 'Bearer {}'.format(access_token)})
-    print(json.loads(final_status.text))
+    print(json.loads(get_req_status().text))
 
 
 
