@@ -69,11 +69,11 @@ def create_request(bucket,project_id,instance_id,access_token):
         "importContext":
             {
                 "fileType": "CSV",
-                "uri": "gs://{bucket_name}/ingest/sample.csv".format(bucket_name=bucket),
+                "uri": "gs://{bucket_name}/ingest/test.csv".format(bucket_name=bucket),
                 "database": "chmt",
                 "csvImportOptions":
                     {
-                        "table": "client_to_update"
+                        "table": "test_insert"
                     }
             }
         }
@@ -149,7 +149,7 @@ if __name__ == '__main__':
     print(credentials.valid)  # prints True
     print(credentials.token)  # prints token
 
-    execute_statement(stmt_client_table_test)
-    execute_statement(stmt_load_data_test)
-    #create_request("poc-chaumet", "tonal-limiter-394416", "poc-chaumet",credentials.token)
+    #execute_statement(stmt_client_table_test)
+    #execute_statement(stmt_load_data_test)
+    create_request("poc-chaumet", "tonal-limiter-394416", "poc-chaumet",credentials.token)
 
