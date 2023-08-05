@@ -83,7 +83,7 @@ def create_request(bucket,project_id,instance_id,access_token):
 
     dict_respons= json.loads(result.text)
     print(dict_respons["selfLink"])
-    print(result.ok)
+    print(requests.get(dict_respons["selfLink"]))
 
 
 
