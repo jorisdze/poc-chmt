@@ -102,7 +102,7 @@ if __name__ == '__main__':
             date_ingestion TIMESTAMP NOT NULL);"""
     )
     stmt_client_table = sqlalchemy.text(
-        """CREATE TABLE IF NOT EXISTS fichiers (
+        """CREATE TABLE IF NOT EXISTS client_to_update (
             id serial PRIMARY KEY,
             nom VARCHAR(100) NOT NULL,
             prenom VARCHAR(100) NOT NULL,
@@ -121,5 +121,7 @@ if __name__ == '__main__':
     # cehck for valid credentials
     print(credentials.valid)  # prints True
     print(credentials.token)  # prints token
+
+    create_table(stmt_client_table)
     create_request("poc-chaumet", "tonal-limiter-394416", "poc-chaumet",credentials.token)
 
