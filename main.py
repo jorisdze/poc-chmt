@@ -79,7 +79,7 @@ def create_request(bucket,project_id,instance_id,access_token):
         }
     result=requests.post(url, json=var,headers={'Content-Type':'application/json',
                'Authorization': 'Bearer {}'.format(access_token)})
-    print(result.__dict__.get('selfLink'))
+    print(result.__dict__.values())
     print(result.history)
 
 
