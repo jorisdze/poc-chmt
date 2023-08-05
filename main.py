@@ -67,7 +67,7 @@ def list_bucket():
     storage_client = storage.Client(project="tonal-limiter-394416")
     BUCKET_NAME = "poc-chaumet"
     bucket = storage_client.get_bucket(BUCKET_NAME)
-    blobs = bucket.list_blobs()
+    blobs = bucket.list_blobs(prefix='ingest')
 
     for blob in blobs:
         print(blob.name)
