@@ -60,7 +60,7 @@ def execute_statement(stmt):
             print("pass!")
     except Exception as error:
         print("An error occurred:", type(error).__name__)
-        print("An error occurred:", error)
+        print("An error occurred:", error.__cause__)
 
 
 def create_request(bucket,project_id,instance_id,access_token):
@@ -112,7 +112,7 @@ if __name__ == '__main__':
 
     stmt_client_table_test = sqlalchemy.text(
         """CREATE TABLE IF NOT EXISTS test_insert (
-            nom VARCHAR(100) NOT NULL;"""
+            nom VARCHAR(100) NOT NULL);"""
     )
 
     stmt_load_data_test = sqlalchemy.text(
