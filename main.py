@@ -50,7 +50,7 @@ def connect_with_connector() -> sqlalchemy.engine.base.Engine:
     print(pool)
     return pool
 
-def create_table(stmt):
+def execute_statement(stmt):
     conn = connect_with_connector()
     try:
         with conn.connect() as connection:
@@ -79,7 +79,7 @@ def create_request(bucket,project_id,instance_id,access_token):
         }
     result=requests.post(url, json=var,headers={'Content-Type':'application/json',
                'Authorization': 'Bearer {}'.format(access_token)})
-    print(result.status_code)
+    print(result.text)
 
 
 def list_bucket():
@@ -109,6 +109,12 @@ if __name__ == '__main__':
             birthdate VARCHAR(100) NOT NULL,
             tel VARCHAR(100) NOT NULL);"""
     )
+
+    stmt_load_data = sqlalchemy.text(
+        """LOAD DATA LOCAL INFILE gs://poc-chaumet/ingest/sample.csv CHARACTER SET 'utf8mb4'"""
+    )
+
+
     #
     # getting the credentials and project details for gcp project
     credentials, your_project_id = google.auth.default(scopes=["https://www.googleapis.com/auth/cloud-platform"])
@@ -122,6 +128,6 @@ if __name__ == '__main__':
     print(credentials.valid)  # prints True
     print(credentials.token)  # prints token
 
-    create_table(stmt_client_table)
-    create_request("poc-chaumet", "tonal-limiter-394416", "poc-chaumet",credentials.token)
+    execute_statement(stmt_load_data)
+    #create_request("poc-chaumet", "tonal-limiter-394416", "poc-chaumet",credentials.token)
 
