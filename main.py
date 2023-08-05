@@ -7,6 +7,8 @@ from google.cloud.sql.connector import Connector, IPTypes
 from google.cloud import storage
 import pg8000
 import requests
+import google.auth
+import google.auth.transport.requests
 
 import sqlalchemy
 from sqlalchemy import text
@@ -106,5 +108,16 @@ if __name__ == '__main__':
             birthdate VARCHAR(100) NOT NULL,
             tel VARCHAR(100) NOT NULL);"""
     )
-    create_request("poc-chaumet","tonal-limiter-394416","poc-chaumet")
+    #create_request("poc-chaumet","tonal-limiter-394416","poc-chaumet")
+    # getting the credentials and project details for gcp project
+    credentials, your_project_id = google.auth.default(scopes=["https://www.googleapis.com/auth/cloud-platform"])
+
+    # getting request object
+    auth_req = google.auth.transport.requests.Request()
+
+    print(credentials.valid)  # prints False
+    credentials.refresh(auth_req)  # refresh token
+    # cehck for valid credentials
+    print(credentials.valid)  # prints True
+    print(credentials.token)  # prints token
 
