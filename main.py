@@ -106,5 +106,5 @@ if __name__ == '__main__':
             birthdate VARCHAR(100) NOT NULL,
             tel VARCHAR(100) NOT NULL);"""
     )
-    list_bucket()
+    create_table(stmt_client_table)
 
