@@ -65,11 +65,13 @@ def create_table():
 
 def list_bucket():
     storage_client = storage.Client(project="tonal-limiter-394416")
-    buckets = storage_client.list_buckets()
-    print("Buckets:")
-    for bucket in buckets:
-        print(bucket.name)
-    print("Listed all storage buckets.")
+    BUCKET_NAME = "poc-chaumet"
+    bucket = storage_client.get_bucket(BUCKET_NAME)
+    blobs = bucket.list_blobs()
+
+    for blob in blobs:
+        print(blob.name)
+
 
 
 if __name__ == '__main__':
