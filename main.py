@@ -115,23 +115,6 @@ if __name__ == '__main__':
             nom VARCHAR(100) NOT NULL);"""
     )
 
-    stmt_load_data_test = sqlalchemy.text(
-        """COPY test_insert(nom) FROM 'gs://poc-chaumet/ingest/test.csv' DELIMITER ',' CSV HEADER;"""
-    )
-
-
-
-    stmt_load_data = sqlalchemy.text(
-        """LOAD DATA LOCAL INFILE 'gs://poc-chaumet/ingest/sample.csv' 
-            INTO TABLE contact_to_update
-            FIELDS TERMINATED BY ',' 
-            lines terminated by '\n'    
-            IGNORE 1 LINES
-        
-        ;"""
-    )
-
-
     #
     # getting the credentials and project details for gcp project
     credentials, your_project_id = google.auth.default(scopes=["https://www.googleapis.com/auth/cloud-platform"])
@@ -145,7 +128,7 @@ if __name__ == '__main__':
     print(credentials.valid)  # prints True
     print(credentials.token)  # prints token
 
-    execute_statement(stmt_load_data_test)
+    #execute_statement(sqlalchemy)
     #execute_statement(stmt_load_data_test)
-    #create_request("poc-chaumet", "tonal-limiter-394416", "poc-chaumet",credentials.token)
+    create_request("poc-chaumet", "tonal-limiter-394416", "poc-chaumet",credentials.token)
 
