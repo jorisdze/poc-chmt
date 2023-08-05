@@ -111,7 +111,7 @@ if __name__ == '__main__':
     )
 
     stmt_load_data = sqlalchemy.text(
-        """LOAD DATA LOCAL INFILE gs://poc-chaumet/ingest/sample.csv CHARACTER SET 'utf8mb4'"""
+        """LOAD DATA LOCAL INFILE 'gs://poc-chaumet/ingest/sample.csv' CHARACTER SET 'utf8mb4';"""
     )
 
 
