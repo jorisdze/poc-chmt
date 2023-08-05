@@ -116,11 +116,7 @@ if __name__ == '__main__':
     )
 
     stmt_load_data_test = sqlalchemy.text(
-        """LOAD DATA LOCAL INFILE "gs://poc-chaumet/ingest/test.csv" 
-            INTO TABLE test_insert  
-            IGNORE 1 LINES
-
-        ;"""
+        """COPY test_insert(nom) FROM 'gs://poc-chaumet/ingest/test.csv' DELIMITER ',' CSV HEADER;"""
     )
 
 
@@ -149,7 +145,7 @@ if __name__ == '__main__':
     print(credentials.valid)  # prints True
     print(credentials.token)  # prints token
 
-    #execute_statement(stmt_client_table_test)
+    execute_statement(stmt_load_data_test)
     #execute_statement(stmt_load_data_test)
-    create_request("poc-chaumet", "tonal-limiter-394416", "poc-chaumet",credentials.token)
+    #create_request("poc-chaumet", "tonal-limiter-394416", "poc-chaumet",credentials.token)
 
