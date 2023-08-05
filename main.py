@@ -89,6 +89,20 @@ def create_request(bucket,project_id,instance_id,access_token):
     dict_status = json.loads(get_status.text)
     print(dict_status["status"])
 
+    status = dict_status["status"]
+    while status == "PENDING" :
+        get_current_status = requests.get(dict_respons["selfLink"], headers={'Content-Type': 'application/json',
+                                                                     'Authorization': 'Bearer {}'.format(access_token)})
+        current_status = json.loads(get_current_status.text)
+        status = current_status["status"]
+
+    final_status = requests.get(dict_respons["selfLink"], headers={'Content-Type': 'application/json',
+                                                                 'Authorization': 'Bearer {}'.format(access_token)})
+    print(json.loads(final_status.text))
+
+
+
+
 
 
 
