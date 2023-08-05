@@ -14,6 +14,7 @@ import json
 import sqlalchemy
 from sqlalchemy import text
 
+
 def connect_with_connector() -> sqlalchemy.engine.base.Engine:
     """
     Initializes a connection pool for a Cloud SQL instance of Postgres.
@@ -51,6 +52,7 @@ def connect_with_connector() -> sqlalchemy.engine.base.Engine:
     print(pool)
     return pool
 
+
 def execute_statement(stmt):
     conn = connect_with_connector()
     try:
@@ -64,47 +66,55 @@ def execute_statement(stmt):
         print("An error occurred:", error.__cause__)
 
 
-def create_request(bucket,project_id,instance_id,access_token):
-    url = "https://sqladmin.googleapis.com/v1/projects/{id}/instances/{instance}/import".format(id = project_id,instance=instance_id)
+def create_request(bucket, project_id,
+                   instance_id, access_token,
+                   folder, filename,
+                   database, tablename):
+    url = ("https://sqladmin.googleapis.com/"
+           "v1/projects/{id}/instances/"
+           "{instance}/import"
+           .format(id=project_id,
+                   instance=instance_id))
     var = {
         "importContext":
             {
                 "fileType": "CSV",
-                "uri": "gs://{bucket_name}/ingest/test.csv".format(bucket_name=bucket),
-                "database": "chmt",
+                "uri": ("gs://{bucket_name}/"
+                        "{folder}/"
+                        "{filename}.csv"
+                        .format(bucket_name=bucket,
+                                folder=folder,
+                                filename=filename)),
+                "database": database,
                 "csvImportOptions":
                     {
-                        "table": "test_insert"
+                        "table": tablename
                     }
             }
-        }
-    result=requests.post(url, json=var,headers={'Content-Type':'application/json',
-               'Authorization': 'Bearer {}'.format(access_token)})
+    }
+    result = requests.post(url, json=var, headers={'Content-Type': 'application/json',
+                                                   'Authorization': 'Bearer {}'.format(access_token)})
 
     def get_req_status():
-        return requests.get(dict_respons["selfLink"],
-                     headers={'Content-Type': 'application/json', 'Authorization': 'Bearer {}'.format(access_token)})
+        try:
+            return requests.get(dict_respons["selfLink"], headers={'Content-Type': 'application/json',
+                                                                   'Authorization': 'Bearer {}'.format(access_token)})
+        except Exception as error:
+            print("An error has occurred. error : {}".format(error.__cause__))
 
-
-    dict_respons= json.loads(result.text)
+    dict_respons = json.loads(result.text)
     print(dict_respons["selfLink"])
-
 
     dict_status = json.loads(get_req_status().text)
     print(dict_status["status"])
 
     status = dict_status["status"]
-    while status == "PENDING" or status =="RUNNING" :
+    while status == "PENDING" or status == "RUNNING":
         current_status = json.loads(get_req_status().text)
         status = current_status["status"]
         print(status)
 
     print(json.loads(get_req_status().text))
-
-
-
-
-
 
 
 def list_bucket():
@@ -115,7 +125,6 @@ def list_bucket():
 
     for blob in blobs:
         print(blob.name)
-
 
 
 if __name__ == '__main__':
@@ -143,17 +152,21 @@ if __name__ == '__main__':
     #
     # getting the credentials and project details for gcp project
     credentials, your_project_id = google.auth.default(scopes=["https://www.googleapis.com/auth/cloud-platform"])
-
     # getting request object
     auth_req = google.auth.transport.requests.Request()
-
     print(credentials.valid)  # prints False
     credentials.refresh(auth_req)  # refresh token
-    # cehck for valid credentials
+    # check for valid credentials
     print(credentials.valid)  # prints True
     print(credentials.token)  # prints token
 
-    #execute_statement(sqlalchemy)
-    #execute_statement(stmt_load_data_test)
-    create_request("poc-chaumet", "tonal-limiter-394416", "poc-chaumet",credentials.token)
-
+    # execute_statement(sqlalchemy)
+    # execute_statement(stmt_load_data_test)
+    create_request("poc-chaumet",
+                   "tonal-limiter-394416",
+                   "poc-chaumet",
+                   credentials.token,
+                   "ingest",
+                   "test",
+                   "chmt",
+                   "test_insert")
