@@ -116,7 +116,7 @@ if __name__ == '__main__':
     )
 
     stmt_load_data_test = sqlalchemy.text(
-        """LOAD DATA LOCAL INFILE 'gs://poc-chaumet/ingest/test.csv' 
+        """LOAD DATA LOCAL INFILE "gs://poc-chaumet/ingest/test.csv" 
             INTO TABLE test_insert  
             IGNORE 1 LINES
 
