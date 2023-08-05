@@ -69,7 +69,7 @@ def create_request(bucket,project_id,instance_id,access_token):
         "importContext":
             {
                 "fileType": "CSV",
-                "uri": "gs://{bucket_name}/sample.csv".format(bucket_name=bucket),
+                "uri": "gs://{bucket_name}/ingest/sample.csv".format(bucket_name=bucket),
                 "database": "chmt",
                 "csvImportOptions":
                     {
