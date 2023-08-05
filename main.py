@@ -83,7 +83,8 @@ def create_request(bucket,project_id,instance_id,access_token):
 
     dict_respons= json.loads(result.text)
     print(dict_respons["selfLink"])
-    print(requests.get(dict_respons["selfLink"]))
+    print(requests.get(dict_respons["selfLink"],headers={'Content-Type':'application/json',
+               'Authorization': 'Bearer {}'.format(access_token)}))
 
 
 
