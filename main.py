@@ -6,6 +6,7 @@ import os
 from google.cloud.sql.connector import Connector, IPTypes
 from google.cloud import storage
 import pg8000
+import requests
 
 import sqlalchemy
 from sqlalchemy import text
@@ -47,10 +48,7 @@ def connect_with_connector() -> sqlalchemy.engine.base.Engine:
     print(pool)
     return pool
 
-def create_table():
-    stmt = sqlalchemy.text(
-        "CREATE TABLE IF NOT EXISTS fichiers (id_fichier serial PRIMARY KEY, nom_fichier VARCHAR(100) NOT NULL,date_reception TIMESTAMP NOT NULL,date_ingestion TIMESTAMP NOT NULL);"
-    )
+def create_table(stmt):
     conn = connect_with_connector()
     try:
         with conn.connect() as connection:
@@ -63,11 +61,29 @@ def create_table():
         print("An error occurred:", error)
 
 
+def create_request(bucket,project_id,instance_id):
+    url = "https://sqladmin.googleapis.com/v1/projects/{id}/instances/{instance}/import".format(id = project_id,instance=instance_id)
+    var = {
+        "importContext":
+            {
+                "fileType": "CSV",
+                "uri": "gs://{bucket_name}/sample.csv".format(bucket_name=bucket),
+                "database": "chmt",
+                "csvImportOptions":
+                    {
+                        "table": "client_to_update"
+                    }
+            }
+        }
+    result=requests.post(url, json=var)
+    print(result.text)
+
+
 def list_bucket():
     storage_client = storage.Client(project="tonal-limiter-394416")
     BUCKET_NAME = "poc-chaumet"
     bucket = storage_client.get_bucket(BUCKET_NAME)
-    blobs = bucket.list_blobs(prefix='ingest')
+    blobs = bucket.list_blobs(prefix='ingest/*.csv')
 
     for blob in blobs:
         print(blob.name)
@@ -75,6 +91,20 @@ def list_bucket():
 
 
 if __name__ == '__main__':
-
+    stmt_fic_table = sqlalchemy.text(
+        """CREATE TABLE IF NOT EXISTS fichiers (
+            id_fichier serial PRIMARY KEY,
+            nom_fichier VARCHAR(100) NOT NULL,
+            date_reception TIMESTAMP NOT NULL,
+            date_ingestion TIMESTAMP NOT NULL);"""
+    )
+    stmt_client_table = sqlalchemy.text(
+        """CREATE TABLE IF NOT EXISTS fichiers (
+            id serial PRIMARY KEY,
+            nom VARCHAR(100) NOT NULL,
+            prenom VARCHAR(100) NOT NULL,
+            birthdate VARCHAR(100) NOT NULL,
+            tel VARCHAR(100) NOT NULL);"""
+    )
     list_bucket()
 
