@@ -57,8 +57,8 @@ def execute_statement(stmt):
     conn = connect_with_connector()
     try:
         with conn.connect() as connection:
-            connection.execute(stmt)
-            connection.commit()
+            # connection.execute(stmt)
+            # connection.commit()
             print(connection)
             print("pass!")
     except Exception as error:
