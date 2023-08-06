@@ -90,7 +90,7 @@ def create_request(bucket, project_id,
                 "csvImportOptions":
                     {
                         "table": tablename,
-                        "fieldsTerminatedBy": ",",
+                        "fieldsTerminatedBy": "2C",
                     }
             }
     }
@@ -162,8 +162,6 @@ if __name__ == '__main__':
     # check for valid credentials
     print(credentials.valid)  # prints True
     print(credentials.token)  # prints token
-
-    print(config.config())
 
     # execute_statement(sqlalchemy)
     # execute_statement(stmt_load_data_test)
