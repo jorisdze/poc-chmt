@@ -172,7 +172,7 @@ if __name__ == '__main__':
     conf = config.config()
     print(conf["user"])
 
-    execute_statement(stmt_client_table)
+    execute_statement(stmt_client_table_test)
 
     # execute_statement(sqlalchemy)
     # execute_statement(stmt_load_data_test)
