@@ -35,10 +35,10 @@ def connect_with_connector() -> sqlalchemy.engine.base.Engine:
     conf = config.config()
     def getconn() -> pg8000.dbapi.Connection:
         conn: pg8000.dbapi.Connection = connector.connect(
-            conf["name"],
-            user=conf["user"],
-            password=conf["password"],
-            db=conf["database"],
+            "tonal-limiter-394416:us-central1:poc-chaumet",
+            user="postgres",
+            password="!Ven2023",
+            db="chmt",
             ip_type=ip_type,
         )
         return conn
