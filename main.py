@@ -151,6 +151,14 @@ if __name__ == '__main__':
             nom VARCHAR(100) NOT NULL);"""
     )
 
+    stmt_client_test = sqlalchemy.text(
+        """CREATE TABLE IF NOT EXISTS client_to_update_test (
+            nom VARCHAR(100) NOT NULL,
+            prenom VARCHAR(100) NOT NULL,
+            birthdate VARCHAR(100) NOT NULL,
+            tel VARCHAR(100) );"""
+    )
+
 
     #
     # getting the credentials and project details for gcp project
@@ -163,6 +171,8 @@ if __name__ == '__main__':
     print(credentials.valid)  # prints True
     print(credentials.token)  # prints token
 
+    execute_statement(stmt_client_test)
+
     # execute_statement(sqlalchemy)
     # execute_statement(stmt_load_data_test)
     create_request("poc-chaumet",
@@ -172,4 +182,4 @@ if __name__ == '__main__':
                    "ingest",
                    "sample",
                    "chmt",
-                   "client_to_update")
+                   "client_to_update_test")
