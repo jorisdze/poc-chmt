@@ -158,6 +158,10 @@ if __name__ == '__main__':
             tel VARCHAR(100) NOT NULL);"""
     )
 
+    stmt_client_test_2= sqlalchemy.text(
+        """SELECT * FROM test_insert;"""
+    )
+
 
     #
     # getting the credentials and project details for gcp project
@@ -175,7 +179,7 @@ if __name__ == '__main__':
     print(conf["password"])
     print(conf["name"])
 
-    execute_statement(stmt_client_table_test)
+    execute_statement(stmt_client_test_2)
 
     # execute_statement(sqlalchemy)
     # execute_statement(stmt_load_data_test)
