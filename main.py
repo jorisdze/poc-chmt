@@ -89,8 +89,7 @@ def create_request(bucket, project_id,
                 "database": database,
                 "csvImportOptions":
                     {
-                        "table": tablename,
-                        "fieldsTerminatedBy": "2C",
+                        "table": tablename*
                     }
             }
     }
@@ -156,7 +155,7 @@ if __name__ == '__main__':
             nom VARCHAR(100) NOT NULL,
             prenom VARCHAR(100) NOT NULL,
             birthdate VARCHAR(100) NOT NULL,
-            tel VARCHAR(100) );"""
+            tel VARCHAR(100) NULL);"""
     )
 
 
