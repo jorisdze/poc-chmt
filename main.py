@@ -10,6 +10,7 @@ import requests
 import google.auth
 import google.auth.transport.requests
 import json
+import config
 
 import sqlalchemy
 from sqlalchemy import text
@@ -100,7 +101,7 @@ def create_request(bucket, project_id,
             return requests.get(dict_respons["selfLink"], headers={'Content-Type': 'application/json',
                                                                    'Authorization': 'Bearer {}'.format(access_token)})
         except Exception as error:
-            print("An error has occurred. error : {}".format(error.__cause__))
+            print("An error has occurred when get req status. error : {}".format(error.__cause__))
 
     dict_respons = json.loads(result.text)
     print(dict_respons["selfLink"])
@@ -160,13 +161,15 @@ if __name__ == '__main__':
     print(credentials.valid)  # prints True
     print(credentials.token)  # prints token
 
+    config.config()
+
     # execute_statement(sqlalchemy)
     # execute_statement(stmt_load_data_test)
-    create_request("poc-chaumet",
-                   "tonal-limiter-394416",
-                   "poc-chaumet",
-                   credentials.token,
-                   "ingest",
-                   "test",
-                   "chmt",
-                   "test_insert")
+    # create_request("poc-chaumet",
+    #                "tonal-limiter-394416",
+    #                "poc-chaumet",
+    #                 credentials.token,
+    #                "ingest",
+    #                "test",
+    #                "chmt",
+    #                "test_insert")
