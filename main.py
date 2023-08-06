@@ -56,7 +56,7 @@ def connect_with_connector() -> sqlalchemy.engine.base.Engine:
 def execute_statement(stmt):
     conn = connect_with_connector()
     try:
-        with conn.connect() as connection:
+        with conn as connection:
             # connection.execute(stmt)
             # connection.commit()
             print(connection)
