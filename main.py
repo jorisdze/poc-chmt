@@ -158,7 +158,7 @@ if __name__ == '__main__':
     )
 
     stmt_client_test_2 = sqlalchemy.text(
-        """SELECT * FROM test_insert;"""
+        """SELECT 1;"""
     )
 
     #
