@@ -16,7 +16,6 @@ import sqlalchemy
 from sqlalchemy import text
 
 
-
 def connect_with_connector() -> sqlalchemy.engine.base.Engine:
     """
     Initializes a connection pool for a Cloud SQL instance of Postgres.
@@ -33,14 +32,14 @@ def connect_with_connector() -> sqlalchemy.engine.base.Engine:
     # initialize Cloud SQL Python Connector object
     connector = Connector()
     conf = config.config()
+
     def getconn() -> pg8000.dbapi.Connection:
-        conn: pg8000.dbapi.Connection = connector.connect(
-            "tonal-limiter-394416:us-central1:poc-chaumet",
-            user="postgres",
-            password="!Ven2023",
-            db="chmt",
-            ip_type=ip_type,
-        )
+        conn: pg8000.dbapi.Connection = connector.connect("tonal-limiter-394416:us-central1:poc-chaumet",
+                                                          user="postgres",
+                                                          password="!Ven2023",
+                                                          db="chmt",
+                                                          ip_type=ip_type,
+                                                          )
         return conn
 
     # The Cloud SQL Python Connector can be used with SQLAlchemy
@@ -158,10 +157,9 @@ if __name__ == '__main__':
             tel VARCHAR(100) NOT NULL);"""
     )
 
-    stmt_client_test_2= sqlalchemy.text(
+    stmt_client_test_2 = sqlalchemy.text(
         """SELECT * FROM test_insert;"""
     )
-
 
     #
     # getting the credentials and project details for gcp project
