@@ -89,7 +89,8 @@ def create_request(bucket, project_id,
                 "database": database,
                 "csvImportOptions":
                     {
-                        "table": tablename
+                        "table": tablename,
+                        "fieldsTerminatedBy": ",",
                     }
             }
     }
