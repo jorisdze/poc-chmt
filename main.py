@@ -170,15 +170,17 @@ if __name__ == '__main__':
     print(credentials.valid)  # prints True
     print(credentials.token)  # prints token
 
-    execute_statement(stmt_client_table)
+    print(config.config()["user"])
+
+    #execute_statement(stmt_client_table)
 
     # execute_statement(sqlalchemy)
     # execute_statement(stmt_load_data_test)
-    create_request("poc-chaumet",
-                   "tonal-limiter-394416",
-                   "poc-chaumet",
-                    credentials.token,
-                   "ingest",
-                   "sample",
-                   "chmt",
-                   "client_to_update_test")
+    # create_request("poc-chaumet",
+    #                "tonal-limiter-394416",
+    #                "poc-chaumet",
+    #                 credentials.token,
+    #                "ingest",
+    #                "sample",
+    #                "chmt",
+    #                "client_to_update_test")
