@@ -15,7 +15,7 @@ import config
 import sqlalchemy
 from sqlalchemy import text
 
-conf = config.config()
+
 
 def connect_with_connector() -> sqlalchemy.engine.base.Engine:
     """
@@ -32,7 +32,7 @@ def connect_with_connector() -> sqlalchemy.engine.base.Engine:
 
     # initialize Cloud SQL Python Connector object
     connector = Connector()
-
+    conf = config.config()
     def getconn() -> pg8000.dbapi.Connection:
         conn: pg8000.dbapi.Connection = connector.connect(
             conf["name"],
@@ -169,8 +169,8 @@ if __name__ == '__main__':
     # check for valid credentials
     print(credentials.valid)  # prints True
     print(credentials.token)  # prints token
-
-    print(config.config()["user"])
+    conf = config.config()
+    print(conf["user"])
 
     execute_statement(stmt_client_table)
 
