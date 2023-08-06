@@ -55,15 +55,15 @@ def connect_with_connector() -> sqlalchemy.engine.base.Engine:
 
 def execute_statement(stmt):
     conn = connect_with_connector()
-    try:
-        with conn as connection:
-            # connection.execute(stmt)
-            # connection.commit()
-            print(connection)
-            print("pass!")
-    except Exception as error:
-        print("An error occurred:", type(error).__name__)
-        print("An error occurred:", error.__cause__)
+    # try:
+    #     with conn as connection:
+    #         connection.execute(stmt)
+    #         connection.commit()
+    #         print(connection)
+    #         print("pass!")
+    # except Exception as error:
+    #     print("An error occurred:", type(error).__name__)
+    #     print("An error occurred:", error.__cause__)
 
 
 def create_request(bucket, project_id,
