@@ -170,7 +170,7 @@ if __name__ == '__main__':
     print(credentials.valid)  # prints True
     print(credentials.token)  # prints token
 
-    execute_statement(stmt_client_test)
+    execute_statement(stmt_client_table)
 
     # execute_statement(sqlalchemy)
     # execute_statement(stmt_load_data_test)
