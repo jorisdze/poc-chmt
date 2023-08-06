@@ -15,6 +15,7 @@ import config
 import sqlalchemy
 from sqlalchemy import text
 
+conf = config.config()
 
 def connect_with_connector() -> sqlalchemy.engine.base.Engine:
     """
@@ -34,11 +35,10 @@ def connect_with_connector() -> sqlalchemy.engine.base.Engine:
 
     def getconn() -> pg8000.dbapi.Connection:
         conn: pg8000.dbapi.Connection = connector.connect(
-            "tonal-limiter-394416:us-central1:poc-chaumet",
-            "pg8000",
-            user="postgres",
-            password="!Ven2023",
-            db="chmt",
+            conf["name"],
+            user=conf["user"],
+            password=conf["password"],
+            db=conf["database"],
             ip_type=ip_type,
         )
         return conn
@@ -150,6 +150,7 @@ if __name__ == '__main__':
             nom VARCHAR(100) NOT NULL);"""
     )
 
+
     #
     # getting the credentials and project details for gcp project
     credentials, your_project_id = google.auth.default(scopes=["https://www.googleapis.com/auth/cloud-platform"])
@@ -165,11 +166,11 @@ if __name__ == '__main__':
 
     # execute_statement(sqlalchemy)
     # execute_statement(stmt_load_data_test)
-    # create_request("poc-chaumet",
-    #                "tonal-limiter-394416",
-    #                "poc-chaumet",
-    #                 credentials.token,
-    #                "ingest",
-    #                "test",
-    #                "chmt",
-    #                "test_insert")
+    create_request("poc-chaumet",
+                   "tonal-limiter-394416",
+                   "poc-chaumet",
+                    credentials.token,
+                   "ingest",
+                   "sample",
+                   "chmt",
+                   "client_to_update")
