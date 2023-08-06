@@ -161,7 +161,7 @@ if __name__ == '__main__':
     print(credentials.valid)  # prints True
     print(credentials.token)  # prints token
 
-    config.config()
+    print(config.config())
 
     # execute_statement(sqlalchemy)
     # execute_statement(stmt_load_data_test)
