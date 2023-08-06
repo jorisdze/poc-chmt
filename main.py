@@ -171,6 +171,9 @@ if __name__ == '__main__':
     print(credentials.token)  # prints token
     conf = config.config()
     print(conf["user"])
+    print(conf["database"])
+    print(conf["password"])
+    print(conf["name"])
 
     execute_statement(stmt_client_table_test)
 
