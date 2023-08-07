@@ -36,7 +36,7 @@ def connect_with_connector() -> sqlalchemy.engine.base.Engine:
     def getconn() -> pg8000.dbapi.Connection:
         conn: pg8000.dbapi.Connection = connector.connect(
             conf["name"],
-            driver="postgresql",
+            "pg8000",
             user=conf["user"],
             password=conf["password"],
             db=conf["database"],
@@ -170,11 +170,7 @@ if __name__ == '__main__':
     # check for valid credentials
     print(credentials.valid)  # prints True
     print(credentials.token)  # prints token
-    conf = config.config()
-    print(conf["user"])
-    print(conf["database"])
-    print(conf["password"])
-    print(conf["name"])
+
 
     execute_statement(stmt_client_table_test)
 
