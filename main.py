@@ -36,7 +36,7 @@ def connect_with_connector() -> sqlalchemy.engine.base.Engine:
     def getconn() -> pg8000.dbapi.Connection:
         conn: pg8000.dbapi.Connection = connector.connect(
             conf["name"],
-            driver=conf["user"],
+            driver="postgresql",
             user=conf["user"],
             password=conf["password"],
             db=conf["database"],
