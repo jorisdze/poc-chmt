@@ -33,16 +33,29 @@ def connect_with_connector() -> sqlalchemy.engine.base.Engine:
     # initialize Cloud SQL Python Connector object
     connector = Connector()
     conf = config.config()
+
     def getconn() -> pg8000.dbapi.Connection:
         conn: pg8000.dbapi.Connection = connector.connect(
-            conf["name"],
+            "tonal-limiter-394416:us-central1:poc-chaumet",
             "pg8000",
-            user=conf["user"],
-            password=conf["password"],
-            db=conf["database"],
-            ip_type=ip_type,
+            user="postgres",
+            password="!Ven2023",  # plain (unescaped) text
+            host="35.222.179.98",
+            db="chmt",
+            ip_type=ip_type
         )
+
         return conn
+    # def getconn() -> pg8000.dbapi.Connection:
+    #     conn: pg8000.dbapi.Connection = connector.connect(
+    #         conf["name"],
+    #         "pg8000",
+    #         user=conf["user"],
+    #         password=conf["password"],
+    #         db=conf["database"],
+    #         ip_type=ip_type,
+    #     )
+    #     return conn
 
     # The Cloud SQL Python Connector can be used with SQLAlchemy
     # using the 'creator' argument to 'create_engine'
