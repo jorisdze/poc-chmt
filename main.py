@@ -34,18 +34,6 @@ def connect_with_connector() -> sqlalchemy.engine.base.Engine:
     connector = Connector()
     conf = config.config()
 
-    # def getconn() -> pg8000.dbapi.Connection:
-    #     conn: pg8000.dbapi.Connection = connector.connect(
-    #         "tonal-limiter-394416:us-central1:poc-chaumet",
-    #         "pg8000",
-    #         user="postgres",
-    #         password="!Ven2023",  # plain (unescaped) text
-    #         host="35.222.179.98",
-    #         db="chmt",
-    #         ip_type=ip_type
-    #     )
-    #
-    #     return conn
     def getconn() -> pg8000.dbapi.Connection:
         conn: pg8000.dbapi.Connection = connector.connect(
             conf["name"],
@@ -190,11 +178,11 @@ if __name__ == '__main__':
 
     # execute_statement(sqlalchemy)
     # execute_statement(stmt_load_data_test)
-    # create_request("poc-chaumet",
-    #                "tonal-limiter-394416",
-    #                "poc-chaumet",
-    #                 credentials.token,
-    #                "ingest",
-    #                "sample",
-    #                "chmt",
-    #                "client_to_update_test")
+    create_request("poc-chaumet",
+                   "tonal-limiter-394416",
+                   "poc-chaumet",
+                    credentials.token,
+                   "ingest",
+                   "sample",
+                   "chmt",
+                   "client_to_update_test")
