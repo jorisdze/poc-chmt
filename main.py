@@ -158,6 +158,7 @@ if __name__ == '__main__':
             nom VARCHAR(100) NOT NULL,
             prenom VARCHAR(100) NOT NULL,
             birthdate VARCHAR(100) NOT NULL,
+            address VARCHAR(100) NOT NULL,
             tel VARCHAR(100) NOT NULL);"""
     )
 
