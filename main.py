@@ -154,7 +154,7 @@ if __name__ == '__main__':
     )
 
     stmt_client_test = sqlalchemy.text(
-        """CREATE TABLE IF NOT EXISTS client_to_update_test (
+        """CREATE TABLE IF NOT EXISTS client_to_update_test_2 (
             nom VARCHAR(100) NOT NULL,
             prenom VARCHAR(100) NOT NULL,
             birthdate VARCHAR(100) NOT NULL,
@@ -186,4 +186,4 @@ if __name__ == '__main__':
                    "ingest",
                    "sample",
                    "chmt",
-                   "client_to_update_test")
+                   "client_to_update_test_2")
