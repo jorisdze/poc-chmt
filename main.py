@@ -92,7 +92,10 @@ def create_request(bucket, project_id,
                 "database": database,
                 "csvImportOptions":
                     {
-                        "table": tablename
+                        "table": tablename,
+                        "quoteCharacter": "%22",
+                        "fieldsTerminatedBy": "%2C",
+                        "linesTerminatedBy": "%0A"
                     }
             }
     }
